@@ -4,14 +4,13 @@ import subprocess
 import pyperclip
 
 def get_directory_structure(path, git_only=False):
-    if git_only:
-        git_files = subprocess.check_output(["git", "ls-files"], cwd=path).decode("utf-8").splitlines()
-        git_files = [os.path.join(path, f) for f in git_files]
-
     tree = {}
     for root, dirs, files in os.walk(path):
         if git_only:
-            dirs[:] = [d for d in dirs if os.path.join(root, d) in git_files]
+            git_files = subprocess.check_output(["git", "ls-files", "--recurse-submodules"], cwd=root).decode("utf-8").splitlines()
+            git_files = [os.path.join(root, f) for f in git_files]
+            git_dirs = set(os.path.dirname(gf) for gf in git_files)
+            dirs[:] = [d for d in dirs if any(os.path.join(root, d) in gd for gd in git_dirs)]
             files = [f for f in files if os.path.join(root, f) in git_files]
 
         branch = tree
@@ -22,16 +21,16 @@ def get_directory_structure(path, git_only=False):
 
     return tree
 
-def tree_to_string(tree, level=0, indent="    "):
+def tree_to_string(tree, level=0, indent="    ", connector=""):
     result = ""
     items = sorted(tree.items())
     for i, (name, subtree) in enumerate(items):
         is_last = i == len(items) - 1
         prefix = "└── " if is_last else "├── "
-        result += f"{indent * level}{prefix}{name}\n"
+        result += f"{connector}{prefix}{name}\n"
         if subtree is not None:
-            connector = "" if is_last else "│"
-            result += tree_to_string(subtree, level + 1, indent + connector + "   ")
+            next_connector = connector + ("    " if is_last else "│   ")
+            result += tree_to_string(subtree, level + 1, indent, next_connector)
 
     return result
 
@@ -43,7 +42,7 @@ def main():
     git_only = "--git-only" in sys.argv
     path = [arg for arg in sys.argv[1:] if arg != "--git-only"]
     path = path[0] if path else "."
-
+    path = path.replace("\\", "/")
     tree = get_directory_structure(path, git_only)
     tree_string = tree_to_string(tree)
     pyperclip.copy(tree_string)
