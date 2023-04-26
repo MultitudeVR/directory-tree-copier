@@ -2,7 +2,18 @@ import os
 import sys
 import subprocess
 import pyperclip
-import argparse
+import click
+
+@click.command()
+@click.argument('path', type=click.Path(exists=True), default='.')
+@click.option('--git-only', is_flag=True, help='copy only git-related files')
+def copy_git_structure(path, git_only):
+    """Copy a directory, including only git-related files."""
+    path = path.replace("\\", "/")
+    tree = get_directory_structure(path, git_only)
+    tree_string = tree_to_string(tree)
+    pyperclip.copy(tree_string)
+    click.echo("Directory structure copied to clipboard.")
 
 def get_directory_structure(path, git_only=False):
     tree = {}
@@ -35,18 +46,5 @@ def tree_to_string(tree, level=0, indent="    ", connector=""):
 
     return result
 
-def main():
-    parser = argparse.ArgumentParser(description='Copy a directory, including only git-related files.')
-    parser.add_argument('path', metavar='path', type=str, default='.', nargs='?', help='path to directory to copy')
-    parser.add_argument('--git-only', action='store_true', help='copy only git-related files')
-    args = parser.parse_args()
-
-    git_only = args.git_only
-    path = args.path.replace("\\", "/")
-    tree = get_directory_structure(path, git_only)
-    tree_string = tree_to_string(tree)
-    pyperclip.copy(tree_string)
-    print("Directory structure copied to clipboard.")
-
 if __name__ == "__main__":
-    main()
+    copy_git_structure()
