@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 import pyperclip
+import argparse
 
 def get_directory_structure(path, git_only=False):
     tree = {}
@@ -35,14 +36,13 @@ def tree_to_string(tree, level=0, indent="    ", connector=""):
     return result
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: python directory_copier.py [--git-only] [path]")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description='Copy a directory, including only git-related files.')
+    parser.add_argument('path', metavar='path', type=str, default='.', nargs='?', help='path to directory to copy')
+    parser.add_argument('--git-only', action='store_true', help='copy only git-related files')
+    args = parser.parse_args()
 
-    git_only = "--git-only" in sys.argv
-    path = [arg for arg in sys.argv[1:] if arg != "--git-only"]
-    path = path[0] if path else "."
-    path = path.replace("\\", "/")
+    git_only = args.git_only
+    path = args.path.replace("\\", "/")
     tree = get_directory_structure(path, git_only)
     tree_string = tree_to_string(tree)
     pyperclip.copy(tree_string)
