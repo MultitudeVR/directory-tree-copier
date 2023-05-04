@@ -11,7 +11,7 @@ def copy_git_structure(path, git_only):
     """Copy a directory, including only git-related files."""
     path = path.replace("\\", "/")
     tree = get_directory_structure(path, git_only)
-    tree_string = tree_to_string(tree)
+    tree_string = os.path.basename(os.path.abspath(path)) + '/\n' + tree_to_string(tree) # Add the current directory name
     pyperclip.copy(tree_string)
     click.echo("Directory structure copied to clipboard.")
 
@@ -39,7 +39,8 @@ def tree_to_string(tree, level=0, indent="    ", connector=""):
     for i, (name, subtree) in enumerate(items):
         is_last = i == len(items) - 1
         prefix = "└── " if is_last else "├── "
-        result += f"{connector}{prefix}{name}\n"
+        name_with_slash = name + ('/' if subtree is not None else '') # Add a forward slash to directory names
+        result += f"{connector}{prefix}{name_with_slash}\n"
         if subtree is not None:
             next_connector = connector + ("    " if is_last else "│   ")
             result += tree_to_string(subtree, level + 1, indent, next_connector)
