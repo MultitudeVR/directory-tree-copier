@@ -13,13 +13,14 @@ directory-tree-copier/
     ├── directory-copier-git-only.reg
     └── directory-copier.reg
 ```
+The above is an example of Directory Tree Copier's output.
 
 ## Installation
 
 To install and run Directory Tree Copier, you need Python 3.10+ installed on your machine. You can then clone this repository and install the necessary dependencies.
 
 ```bash
-git clone https://github.com/yourusername/directory-tree-copier.git
+git clone https://github.com/multitudevr/directory-tree-copier.git
 cd directory-tree-copier
 pip install -r requirements.txt
 ```
