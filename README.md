@@ -8,10 +8,14 @@ The project has the following structure:
 
 ```
 directory-tree-copier/
+├── LICENSE
+├── README.md
 ├── directory_copier.py
-└── example-registries/
-    ├── directory-copier-git-only.reg
-    └── directory-copier.reg
+├── example-registries/
+│   ├── directory-copier-create.reg
+│   ├── directory-copier-git-only.reg
+│   └── directory-copier.reg
+└── requirements.txt
 ```
 The above is an example of Directory Tree Copier's output.
 
@@ -35,22 +39,23 @@ python directory_copier.py [OPTIONS] [PATH]
 
 The options are as follows:
 
-- `--git-only`: copy only git-related files.
+- `--git-only`: copy only git-tracked files.
+- `--create`: instead of copying the tree to clipboard, it creates the folders and files of a tree from your clipboard.
 - `PATH`: the path of the directory to copy. Defaults to the current directory if not provided.
 
-The directory structure is copied to your clipboard.
+If no option is given, it copies the entire file structure in the PATH to your clipboard as a directory tree.
 
 ## Adding to Windows Context Menu
 
-You can add the "Copy File Tree" and "Copy File Tree (git)" commands to the Windows context menu with the provided .reg files. Here's how to do it:
+You can add the "Copy File Tree", "Copy File Tree (git)", and "Create File Tree" commands to the Windows context menu with the provided .reg files. Here's how to do it:
 
 1. Open the `directory-copier.reg` file in a text editor. 
 2. Replace `C:\\Users\\yourname\\AppData\\Local\\Programs\\Python\\Python310\\python.exe` with the path to your Python executable. You can find this by running `where python` in your command prompt.
-3. Replace `C:\\_git\\directory-tree-copier\\directory_copier.py` with the absolute path to your `directory_copier.py` file. Remember to escape all backslashes with an extra backslash.
+3. Replace `C:\\_git\\directory-tree-copier\\directory_copier.py` with the absolute path to your `directory_copier.py` file.
 4. Save and close the file.
 5. Double click on the .reg file to merge it into your Windows registry. Confirm any prompts you receive.
 
-Repeat these steps with the `directory-copier-git-only.reg` file to add the "Copy File Tree (git)" command to your context menu.
+Repeat these steps with the `directory-copier-git-only.reg` file to add the "Copy File Tree (git)" command to your context menu, and `directory-copier-create.reg` to add "Create File Tree".
 
 Please note that editing the Windows registry can have serious effects on your system. Always create a backup before making changes, and only proceed if you know what you're doing.
 
