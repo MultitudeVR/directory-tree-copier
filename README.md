@@ -12,8 +12,8 @@ directory-tree-copier/
 ├── README.md
 ├── directory_copier.py
 ├── example-registries/
-│   ├── directory-copier-create.reg
 │   ├── directory-copier-git-only.reg
+│   ├── directory-copier-paste.reg
 │   └── directory-copier.reg
 └── requirements.txt
 ```
@@ -21,15 +21,13 @@ The above is an example of Directory Tree Copier's output.
 
 # Purpose
 
-The Directory Tree Copier is designed to serve a dual-purpose, making it a robust and versatile tool for developers.
+Designed for developers who use ChatGPT, Directory Tree Copier serves two primary functions:
 
-Firstly, it empowers developers to provide ChatGPT with comprehensive context regarding a project they are currently working on. By showing the AI model the entire directory structure of the project, it helps the AI understand the context better, making its suggestions and recommendations more accurate and relevant. This can be particularly useful when you're using ChatGPT for code generation or review, as it can produce responses with an understanding of your project's structure.
+1. Enhances ChatGPT's understanding of your project by feeding it a complete directory structure, leading to better code generation and review.
 
-Secondly, Directory Tree Copier is also built to facilitate rapid creation of directories and files that ChatGPT produces when asked to provide a "directory tree" of a project it designs or edits. This means that if you're using ChatGPT to design software projects, the Directory Tree Copier can take ChatGPT's output and quickly set up the files and directories, saving you valuable time and effort.
+2. Speeds up project setup by turning ChatGPT's "directory tree" output into actual directories and files.
 
-In essence, this tool acts as a bridge between your development work and the AI model, ensuring that both the human and the machine understand each other's context and constraints, leading to a more efficient and effective development process. 
-
-Whether you're working on a new project from scratch, restructuring an existing one, or collaborating on a large codebase, the Directory Tree Copier can help make your work easier and more streamlined.
+In essence, this tool acts as a bridge between your development work and the AI model, ensuring that both the human and the machine understand each other's context and constraints, streamlining your workflow and saving you time.
 
 ## Installation
 
