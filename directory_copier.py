@@ -7,9 +7,9 @@ import click
 @click.command()
 @click.argument('path', type=click.Path(exists=True), default='.')
 @click.option('--git-only', is_flag=True, help='copy only git-related files')
-@click.option('--create', is_flag=True, help='read the directory structure from the clipboard and create it')
-def copy_git_structure(path, git_only, create):
-    if create: # create a directory into 'path' from tree string in clipboard
+@click.option('--paste', is_flag=True, help='read the directory structure from the clipboard and create it')
+def copy_git_structure(path, git_only, paste):
+    if paste: # create a directory into 'path' from tree string in clipboard
         path = path.replace("\\", "/")
         tree_string = pyperclip.paste().replace("\r", "")
         if "└" not in tree_string:
