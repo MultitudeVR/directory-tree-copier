@@ -1,10 +1,10 @@
 # Directory Tree Copier
 
-Directory Tree Copier is a Python tool that allows you to copy the directory structure of any given directory to your clipboard, either including all files, or only those tracked by Git.
+Directory Tree Copier is a Python tool that allows you to copy the directory structure of any given directory to your clipboard, either including all files, or only those tracked by Git. It also allows you to recreate directories and files from a copied tree structure.
 
-## Structure
+## Example
 
-The project has the following structure:
+Here is an example of Directory Tree Copier's output:
 
 ```
 directory-tree-copier/
@@ -17,7 +17,6 @@ directory-tree-copier/
 │   └── directory-copier.reg
 └── requirements.txt
 ```
-The above is an example of Directory Tree Copier's output.
 
 # Purpose
 
